@@ -80,6 +80,7 @@ Web Server Access ပြုနိုင်သောနေရာ
 # # # tests/
 - tests/: PHP Unit Testing files
 
+# # # others
 - .env: App config for current environment
 
 - composer.json: PHP packages list
