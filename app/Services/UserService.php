@@ -16,7 +16,7 @@ class UserService
     public function getUserList()
     {
         // Logic to fetch user list from database or any other source
-        return User::all();
+        return User::paginate(10);
     }
     
     /**

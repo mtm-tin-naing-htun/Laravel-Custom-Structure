@@ -12,9 +12,13 @@ Laravel ရဲ့ အဓိက Application Logic တွေကို စုထာ
 - - Controllers/Controller.php: အခြား controller တွေအားလုံးရဲ့ base class ဖြစ်တတ်ပါတယ်။
 - - Controllers/UserController.php: User-related action (register, login, edit, delete) တွေကို ထိန်းချုပ်တဲ့ controller ဖြစ်ပါတယ်။
 - - Controllers/Auth/: အသုံးပြုသူ authentication တွေနဲ့ဆိုင်တဲ့ controller များထားဖို့နေရာ ဖြစ်နိုင်ပါတယ်။
+- - Controllers/Api/: Api တွေနဲ့ဆိုင်တဲ့ controller များထားဖို့နေရာ ဖြစ်နိုင်ပါတယ်။
 - - Middleware/: Request တစ်ခုလာသောအခါ ထိန်းချုပ်ရန် middleware များ။
 - - Middleware/Authenticate.php: Laravel built-in middleware တစ်ခုဖြစ်ပြီး authentication မရှိရင် login page သို့ redirect လုပ်ပါတယ်။
+- - Middleware/Api/: Api Request တစ်ခုလာသောအခါ ထိန်းချုပ်ရန် middleware များ။
 - - Requests/UserSaveRequest.php: Form validation ကို တိကျဖို့ Form Request Class တစ်ခု ဖြစ်ပါတယ်။ e.g. user register/update data တွေကို validate လုပ်ခြင်း။
+- - Requests/Api/: Api Request တစ်ခုအတွက် validationစစ်ရန် Request File များ။
+- - Resources/Api/: Api Response တစ်ခုအတွက် formatပြင်ရန် Resource File များ။
 
 - Lib/
 - - Lib/DateFormat.php: Custom date formatting logic များကို ထားတဲ့ helper class တစ်ခုဖြစ်နိုင်ပါတယ်။
@@ -28,6 +32,9 @@ Laravel ရဲ့ အဓိက Application Logic တွေကို စုထာ
 
 - Services/: Controller တွေကို ပေါ့ပါးအောင်ထားပြီး logic ကို service class ထဲတွင် centralize ပြုလုပ်ခြင်း။
 - - Services/UserService.php: User နဲ့ ပတ်သက်တဲ့ Business Logic (ဥပမာ: custom validation, user-specific permission check, external API call) များကို ထည့်သွင်းထားနိုင်တယ်။
+
+- Traits/: classတွေအတွက် Avoid Code Duplication, Clean & Modular, Easy Maintenanceဖြစ်အောင် Featuresအသစ်တွေကို အလွယ်တကူ ပြုလုပ်ပေးနိုင်တယ်
+- - Traits/ApiResponseTrait/: Api response အတွက် success, paginate, error, etcတို့ကို  ကြိုက်တဲ့ နေရာက ခေါ်သုံးနိုင်ဖို့ traitနဲ့ ရေးထားတာ
 
 
 # # # public/
