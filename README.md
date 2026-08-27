@@ -1,6 +1,6 @@
-# # Laravel Custom Structure
+## Laravel Custom Structure
 
-# # # app/
+### app/
 Laravel ရဲ့ အဓိက Application Logic တွေကို စုထားတဲ့ folder ဖြစ်ပါတယ်။ ဒီထဲမှာ subfolders များစွာရှိပါတယ်။
 
 - Console/ - Artisan command များ (php artisan ...) ကို custom လုပ်ဖို့ Command classes များကို ထားတတ်သည်။
@@ -42,7 +42,7 @@ Laravel ရဲ့ အဓိက Application Logic တွေကို စုထာ
 - - Traits/ApiResponseTrait/: Api response အတွက် success, paginate, error, etcတို့ကို  ကြိုက်တဲ့ နေရာက ခေါ်သုံးနိုင်ဖို့ traitနဲ့ ရေးထားတာ
 
 
-# # # public/
+### public/
 Web Server Access ပြုနိုင်သောနေရာ
 
 - css/, js/: Bootstrap/jQuery/jQuery UI စတဲ့ vendor library တွေကို static file အဖြစ် ဒီမှာ မထားတော့ပါ — `package.json` (npm) ကနေတစ်ဆင့် `resources/css`, `resources/js` ထဲမှာ import လုပ်ပြီး Vite က build လုပ်တဲ့အခါ `public/build/` ထဲကို auto-generate လုပ်ပါတယ်။ (`js/user_list.js` တစ်ခုပဲ ဒီမှာ ကျန်ပါတယ် — blade ဘယ်နေရာကမှ မခေါ်တဲ့ dead file ဖြစ်နေလို့ သီးခြား စစ်ကြည့်ဖို့ လိုပါတယ်။)
@@ -56,7 +56,7 @@ Web Server Access ပြုနိုင်သောနေရာ
 - favicon.ico, robots.txt: SEO နှင့် browser support
 
 
-# # # resources/
+### resources/
 - css/app.css: Tailwind + Bootstrap + jQuery UI CSS (npm packages) + `reset.css`/`style.css` (custom overrides) ကို `@import` လုပ်ထားတဲ့ entry file
 - css/reset.css, style.css: Global CSS overrides (ရှေးက `public/css/reset.css`/`style.css` က ဒီကို ရွှေ့ထားတာ)
 - js/app.js: `bootstrap.js` (axios, jQuery, jQuery UI, Bootstrap JS setup) နဲ့ `common.js` ကို import လုပ်တဲ့ entry file
@@ -77,18 +77,18 @@ Web Server Access ပြုနိုင်သောနေရာ
 - - user/: User-specific UI layout blades' folder
 
 
-# # # routes/
+### routes/
 - routes/: web.php, api.php စသည်ဖြင့် route definition files
 
 
-# # # storage/
+### storage/
 - storage/: Logs, Cache, File Upload အတွက်
 
 
-# # # tests/
+### tests/
 - tests/: PHP Unit Testing files
 
-# # # others
+### others
 - .env: App config for current environment
 
 - composer.json: PHP packages list
