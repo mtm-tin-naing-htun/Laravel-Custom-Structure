@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @php
-    use App\Constants\GeneralConst;
+    use App\Enums\UserRoleEnum;
 @endphp
 <div class="container">
     <div class="row">
@@ -51,8 +51,8 @@
                     <label for="role">{{ __('Role') }}</label>
                     <select class="form-control  @error('role') is-invalid @enderror" id="role" name="role">
                         <option value="">{{ __('Select Role') }}</option>
-                        @foreach (GeneralConst::ROLES as $key => $role)
-                            <option value="{{ $key }}" {{ (old('role', $user->role) == $key) ? 'selected' : '' }}>{{ $role }}</option>
+                        @foreach (UserRoleEnum::cases() as $role)
+                            <option value="{{ $role->value }}" {{ (old('role', $user->role?->value) == $role->value) ? 'selected' : '' }}>{{ $role->label() }}</option>
                         @endforeach
                     </select>
                 </div>

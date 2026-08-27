@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 @php
-    use App\Constants\GeneralConst;
     use App\Lib\DateFormat;
 @endphp
 <div class="container">
@@ -35,7 +34,7 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ GeneralConst::ROLES[$user->role] ?? '' }}</td>
+                            <td>{{ $user->role?->label() }}</td>
                             <td>{{ DateFormat::dateTimeFormat($user->created_at) }}
                             <td>
                                 <a href="{{ route('user.edit', ['id' => $user['id']]) }}" class="btn btn-primary">{{ __('Edit') }}</a>

@@ -3,9 +3,14 @@
 # # # app/
 Laravel ရဲ့ အဓိက Application Logic တွေကို စုထားတဲ့ folder ဖြစ်ပါတယ်။ ဒီထဲမှာ subfolders များစွာရှိပါတယ်။
 
-- Constants/ - GeneralConst.php: App တစ်ခုလုံးမှာ အသုံးပြုတဲ့ constant value (e.g. status codes, user roles) တွေကို ထားရာ file ဖြစ်ပါတယ်။
 - Console/ - Artisan command များ (php artisan ...) ကို custom လုပ်ဖို့ Command classes များကို ထားတတ်သည်။
 - Exceptions/ - Error/Exception Handling ကို စီမံတဲ့နေရာ။ Handler.php ပါဝင်သည်။
+
+- Enums/ - App တစ်ခုလုံးမှာ အသုံးပြုတဲ့ fixed value set (e.g. user roles, lock status) တွေကို PHP native Enum အနေနဲ့ ထားရာ folder ဖြစ်ပါတယ်။ (ရှေးက Constants/GeneralConst.php ထဲက array constant တွေကို ဒီမှာ Enum အဖြစ် ပြောင်းလိုက်ပါတယ်။)
+- - Enums/UserRoleEnum.php: `role` column အတွက် backed int Enum (ADMIN = 0, USER = 1)။ `label()` method က UI/API response မှာ ပြသဖို့ label ပေးပြီး၊ `options()` က select box options array ပေးပြီး၊ `values()` က validation rule (`Rule::enum()`) အတွက် သုံးနိုင်ပါတယ်။ `App\Models\User` model ရဲ့ `casts()` ထဲမှာ `role` column ကို ဒီ Enum အဖြစ် auto-cast လုပ်ထားလို့ `$user->role` က Enum instance ဖြစ်ပြီး `$user->role->label()` ခေါ်လို့ရပါတယ်။
+- - Enums/LockStatusEnum.php: `lock_flg` column အတွက် backed int Enum (UNLOCK = 0, LOCK = 1)။ ရှေးက `LOCK_STATUS` array မှာ label နှစ်ခုလုံးကို 'Admin'/'User' လို့ ကူးထားမိတဲ့ bug ရှိခဲ့ပါတယ် (ROLES array ကနေ copy-paste မှားခဲ့တာ) — ဒီ Enum မှာ 'Unlocked'/'Locked' လို့ ပြင်ထားပါပြီ။ `lock_flg` က nullable column ဖြစ်လို့ `$user->lock_flg?->label()` လို့ null-safe operator နဲ့ သုံးပါတယ်။
+- - Enums/Contracts/HasLabel.php: `label(): string` method ရှိရမယ်ဆိုတာကို သတ်မှတ်ပေးတဲ့ interface — Enum အသစ်တွေ ထပ်ထည့်ရင် အလားတူ contract လိုက်နာအောင် ဖြစ်ပါတယ်။
+- - App name — Laravel ရဲ့ standard `config('app.name')` (`.env` ထဲက `APP_NAME`) ကို အစားထိုးသုံးထားပါတယ်။
 
 - Http/
 - - Controllers/: Controller classes များကို ထားသည်။
@@ -40,18 +45,11 @@ Laravel ရဲ့ အဓိက Application Logic တွေကို စုထာ
 # # # public/
 Web Server Access ပြုနိုင်သောနေရာ
 
-- css/
-- - css/bootstrap.min.css: Bootstrap CSS library
-- - css/jquery-ui.min.css: jQuery UI styling
-- - css/reset.css, style.css: သင်ရေးထားတဲ့ Global CSS files
+- css/, js/: Bootstrap/jQuery/jQuery UI စတဲ့ vendor library တွေကို static file အဖြစ် ဒီမှာ မထားတော့ပါ — `package.json` (npm) ကနေတစ်ဆင့် `resources/css`, `resources/js` ထဲမှာ import လုပ်ပြီး Vite က build လုပ်တဲ့အခါ `public/build/` ထဲကို auto-generate လုပ်ပါတယ်။ (`js/user_list.js` တစ်ခုပဲ ဒီမှာ ကျန်ပါတယ် — blade ဘယ်နေရာကမှ မခေါ်တဲ့ dead file ဖြစ်နေလို့ သီးခြား စစ်ကြည့်ဖို့ လိုပါတယ်။)
 
 - img/: Website သုံးတဲ့ ပုံများအတွက် folder
 
-- js/
-- - js/bootstrap.bundle.min.js: Bootstrap JS bundle
-- - js/common.js: Shared Common JS logic
-- - js/jquery-3.7.1.min.js, jquery-ui.min.js: jQuery & UI library
-- - js/user_list.js: User List-related function JS
+- build/: `npm run build` run ပြီးရင် Vite auto-generate လုပ်တဲ့ folder (.gitignore ထဲပါ၊ commit မလုပ်ပါ)
 
 - index.php: Laravel app entry point
 - .htaccess: Apache server config
@@ -59,14 +57,17 @@ Web Server Access ပြုနိုင်သောနေရာ
 
 
 # # # resources/
-- css/, js/: Laravel Mix or Vite မှ Compile ပြုလုပ်မယ့် source files
+- css/app.css: Tailwind + Bootstrap + jQuery UI CSS (npm packages) + `reset.css`/`style.css` (custom overrides) ကို `@import` လုပ်ထားတဲ့ entry file
+- css/reset.css, style.css: Global CSS overrides (ရှေးက `public/css/reset.css`/`style.css` က ဒီကို ရွှေ့ထားတာ)
+- js/app.js: `bootstrap.js` (axios, jQuery, jQuery UI, Bootstrap JS setup) နဲ့ `common.js` ကို import လုပ်တဲ့ entry file
+- js/bootstrap.js: axios/jQuery/Bootstrap JS setup — `window.$`, `window.jQuery`, `window.bootstrap` အဖြစ် global expose လုပ်ထားတယ်
+- js/common.js: Shared Common JS (ရှေးက `public/js/common.js` က ဒီကို ရွှေ့ထားတာ)
 
 - views/: Blade Templates
 - - auth/: Login, Register စသော auth-related UI
 
 - - includes/
 - - includes/common/footer.blade.php, header.blade.php: Shared layout parts (header/footer)
-- - includes/common/script.blade.php, style.blade.php: Shared Common JS & CSS include blade
 - - includes/modals/: Popup modal blade files
 
 - - layouts/

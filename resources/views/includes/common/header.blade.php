@@ -1,12 +1,9 @@
 <header class="container-fluid bg-light p-3 mb-4">
-    @php
-        use App\Constants\GeneralConst;
-    @endphp
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="{{ route('user.list') }}">{{ GeneralConst::APP_NAME }}</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <a class="navbar-brand" href="{{ route('user.list') }}">{{ config('app.name') }}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarNav">

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Constants\GeneralConst;
+use App\Enums\UserRoleEnum;
 use App\Traits\ApiResponseTrait;
 
 class AdminMiddleware
@@ -21,7 +21,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::guard('sanctum')->check()
-            || Auth::guard('sanctum')->user()->role !== GeneralConst::ADMIN) {
+            || Auth::guard('sanctum')->user()->role !== UserRoleEnum::ADMIN) {
             return $this->error(["Unauthorized"], JsonResponse::HTTP_UNAUTHORIZED);
         }
         return $next($request);

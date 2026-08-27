@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Constants\GeneralConst;
+use App\Enums\UserRoleEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
-            "role" => GeneralConst::ADMIN,
+            "role" => UserRoleEnum::ADMIN,
             'created_user_id' => 1,
             'updated_user_id' => 1,
         ];

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Constants\GeneralConst;
+use App\Enums\UserRoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +30,7 @@ class UserSaveRequest extends FormRequest
                 'email' => 'required|email|' . Rule::unique('users', 'email')->ignore($this->route('id')),
                 'password' => Rule::requiredIf(!$this->route('id')) . '|string|min:8|confirmed',
                 'password_confirmation' => Rule::requiredIf(!$this->route('id')) . '|string|min:8',
-                'role' => 'required|in:' . implode(',', array_keys(GeneralConst::ROLES)),
+                'role' => ['required', Rule::enum(UserRoleEnum::class)],
             ];
         }
         return $rules;

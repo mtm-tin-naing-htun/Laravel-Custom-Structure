@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
-use App\Constants\GeneralConst;
 
 class AuthService
 {
@@ -39,7 +38,7 @@ class AuthService
                         "access_token" => $token,
                         "token_type" => "Bearer",
                         "expires_at" => $expires_at->toDateTimeString(),
-                        "user_role" => GeneralConst::ROLES[$user->role],
+                        "user_role" => $user->role->label(),
                         "user_id" => $user->id,
                         "user_name" => $user->name,
                         "last_login_at" => $user->last_login_at

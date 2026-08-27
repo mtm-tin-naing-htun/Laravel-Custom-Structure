@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
-use App\Constants\GeneralConst;
+use App\Enums\UserRoleEnum;
 use App\Traits\ApiResponseTrait;
 
 class UserSaveRequest extends FormRequest
@@ -45,7 +45,7 @@ class UserSaveRequest extends FormRequest
             ],
             'role' => [
                 'required',
-                'in:' . implode(',', array_keys(GeneralConst::ROLES))
+                Rule::enum(UserRoleEnum::class),
             ],
         ];
     }

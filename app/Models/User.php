@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\LockStatusEnum;
+use App\Enums\UserRoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,6 +53,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRoleEnum::class,
+            'lock_flg' => LockStatusEnum::class,
         ];
     }
 
